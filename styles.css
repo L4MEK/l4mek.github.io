@@ -1,0 +1,248 @@
+@import url('https://fonts.googleapis.com/css2?family=Mitr:wght@200;300;400;500;600;700&display=swap');
+:root {
+  --branco: #ffffff;
+  --cinza: #ffffff4d;
+  --fonte-principal: "Mitr", sans-serif;
+  --peso-fonte: 500;
+  --verde: #01ad27;
+  
+}
+
+/*Geral*/
+body {
+  background: linear-gradient(to bottom, #8329f1, #100152);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin: 0;
+  padding: .6em;
+  font-size: clamp(.5rem, 2.5vmin, 1.5rem);
+  overflow: hidden;
+}
+
+/* Define o elemento principal para exibição em bloco */
+main {
+  margin-top: 4.5vw;
+}
+
+/*LexiS*/
+.logo {
+  font-family: var(--fonte-principal);
+  font-weight: var(--peso-fonte);
+  color: var(--branco);
+  font-size: 7vh;
+  text-align: center;
+  margin-top: -6vw;
+  user-select: none;
+}
+
+/*Define o tamanho dos quadrados*/
+.quadro {
+  display: grid;
+  justify-content: center;
+  grid-template-columns: repeat(5, 4em);
+  grid-template-rows: repeat(6, 4em);
+  gap: .25em;
+  margin-bottom: 1em;
+}
+
+/*Onde digita */
+.quadrados {
+  font-family: var(--fonte-principal);
+  color: var(--branco);
+  border: 0.09em solid var(--cinza);
+  font-weight: bold;
+  border-radius: 10%;
+  font-size: 3em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  user-select: none;
+  cursor: pointer;
+}
+
+/*O teclado em si*/
+.teclado {
+  display: grid;
+  grid-template-columns: repeat(20, minmax(auto, 1.25em));
+  grid-auto-rows: 3em;
+  gap: .25em;
+  user-select: none;
+  justify-content: center;
+}
+
+/*Informaçoes das teclas*/
+.tecla {
+  color: var(--branco);
+  font-weight: var(--peso-fonte);
+  font-family: var(--fonte-principal);
+  background-color: #0000003a;
+  font-size: 1.2em;
+  grid-column: span 2;
+  border: none;
+  border-radius: .25em;
+  cursor: pointer;
+}
+
+.tecla.especial {
+  grid-column: span 3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+svg {
+  width: 50%; /* Ajuste conforme necessário */
+  height: auto;
+}
+
+/* Animações */
+/* Faz os quadrados piscarem quando ativos */
+.quadrados.blinking {
+  animation: blinker 1s linear infinite;
+}
+
+@keyframes blinker {
+  50% {
+    background-color: var(--cinza);
+  }
+}
+
+/* Faz as teclas piscarem quando clicadas */
+@keyframes blink {
+  0% {
+    background-color: var(--cinza);
+  }
+
+  50% {
+    background-color: var(--branco);
+  }
+
+  100% {
+    background-color: var(--cinza)
+  }
+}
+
+/* Tecla pisca quando o mouse passa */
+.tecla:hover {
+  animation: blink 0.4s linear;
+}
+
+/* Tecla pisca quando clicada */
+.tecla:active {
+  animation: blink 0.4s linear infinite;
+}
+
+/* Enter pisca quando o mouse passa */
+.tecla.enter:hover {
+  animation: blink 0.4s linear;
+}
+
+/* Enter pisca quando clicado */
+.tecla.enter:active {
+  animation: blink .4s linear infinite;
+}
+
+/* Tecla de apagar pisca quando o mouse passa */
+.tecla.apagar:hover {
+  animation: blink .4s linear;
+}
+
+/* Tecla de apagar pisca quando clicada */
+.tecla.apagar:active {
+  animation: blink .4s linear infinite;
+}
+
+/* Adiciona transição de cor para as teclas */
+.tecla {
+  transition: background-color 0.3s ease;
+}
+
+/* Muda a cor da tecla para branca quando o mouse passa por cima */
+.tecla:hover {
+  background-color: var(--cinza);
+}
+/* Animações */
+
+/* Evitar seleção de texto em todas as teclas */
+.tecla {
+  -webkit-user-select: none; /* Safari para iOS */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Padrão */
+  -webkit-touch-callout: none; /* Desativar o menu de callout em iOS */
+  -webkit-tap-highlight-color: transparent; /* Remover a cor de destaque ao toque em dispositivos móveis */
+}
+
+/* Evitar contorno azul ao clicar nas teclas */
+.tecla:focus {
+  outline: none;
+}
+
+/* Evitar contorno azul em torno das teclas clicáveis */
+button:focus {
+  outline: none;
+}
+
+/* Define a animação para virar da esquerda para a direita */
+@keyframes virarQuadro {
+  0% {
+    transform: perspective(800px) rotateY(0deg);
+  }
+  100% {
+    transform: perspective(800px) rotateY(360deg);
+  }
+}
+
+/* Aplica a animação aos quadrados */
+.quadrados.virar {
+  animation: virarQuadro 0.6s forwards;
+}
+
+/* Define a animação de balançar */
+@keyframes balancarQuadro {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-10px);
+  }
+  75% {
+    transform: translateX(10px);
+  }
+}
+
+/* Aplica a animação de balançar aos quadrados */
+.quadrados.balancar {
+  animation: balancarQuadro 0.5s;
+}
+
+
+
+#mensagem {
+  user-select: none;
+  font-family: var(--fonte-principal);
+  display: none;
+  background-color: blue;
+  color: white;
+  padding: 10px;
+  position: fixed;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 10px;
+  z-index: 1000;
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+
+#mensagem.show {
+  display: block;
+  opacity: 1;
+}
+
+#mensagem.fade-out {
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+
